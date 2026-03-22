@@ -10,45 +10,55 @@ export function PageLoader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    // Timeline: dark → car appears → 3 blinks → reveal
     const t1 = setTimeout(() => setShowCar(true), 300);
-    const t2 = setTimeout(() => setStartFlash(true), 1200);
-    // Total flash duration: ~2.4s, then hold 0.6s, then fade
-    const t3 = setTimeout(() => setDone(true), 4200);
-
+    const t2 = setTimeout(() => setStartFlash(true), 1400);
+    const t3 = setTimeout(() => setDone(true), 4400);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
-  // 3 blinks keyframe: each blink = fade in 120ms, hold 60ms, fade out 150ms, pause 300ms
-  // Total per blink ~630ms × 3 = ~1890ms
-  const blinkKeyframes = {
+  // Keyframes: 3 blinks with increasing power
+  // The DARK overlay fades OUT during flash (car gets brighter)
+  // and fades back IN during pause (car gets darker)
+  const darknessKeyframes = {
     opacity: [
-      0,
-      // Blink 1 — gentle
-      0, 0.6, 0.8, 0.6, 0,
+      0.65,
+      // Blink 1 — subtle
+      0.65, 0.35, 0.25, 0.35, 0.65,
       // Pause
-      0,
-      // Blink 2 — stronger
-      0, 0.85, 1, 0.85, 0,
+      0.65,
+      // Blink 2 — medium
+      0.65, 0.20, 0.12, 0.20, 0.65,
       // Pause
-      0,
-      // Blink 3 — full power, hold longer
-      0, 1, 1, 1, 0.7, 0,
+      0.65,
+      // Blink 3 — full brightness, hold
+      0.65, 0.10, 0.05, 0.05, 0.10, 0.55,
     ],
   };
 
-  const blinkTimes = [
+  // Warm glow overlay — appears when car brightens
+  const glowKeyframes = {
+    opacity: [
+      0,
+      // Blink 1
+      0, 0.15, 0.25, 0.15, 0,
+      // Pause
+      0,
+      // Blink 2
+      0, 0.3, 0.45, 0.3, 0,
+      // Pause
+      0,
+      // Blink 3
+      0, 0.5, 0.65, 0.65, 0.4, 0,
+    ],
+  };
+
+  const times = [
     0,
-    // Blink 1
-    0.02, 0.08, 0.12, 0.18, 0.25,
-    // Pause
-    0.32,
-    // Blink 2
-    0.34, 0.40, 0.44, 0.50, 0.58,
-    // Pause
-    0.65,
-    // Blink 3
-    0.67, 0.72, 0.78, 0.84, 0.92, 1.0,
+    0.02, 0.08, 0.12, 0.18, 0.26,
+    0.33,
+    0.35, 0.41, 0.45, 0.51, 0.59,
+    0.66,
+    0.68, 0.73, 0.78, 0.84, 0.92, 1.0,
   ];
 
   return (
@@ -57,10 +67,10 @@ export function PageLoader() {
         <motion.div
           key="page-loader"
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] bg-[#060709] overflow-hidden"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[9999] bg-[#030405] overflow-hidden"
         >
-          {/* Fullscreen car */}
+          {/* Car image — always visible once loaded */}
           <motion.div
             initial={{ opacity: 0, scale: 1.02 }}
             animate={{
@@ -78,139 +88,34 @@ export function PageLoader() {
               priority
               sizes="100vw"
             />
-            {/* Darken the car so flash is more visible */}
-            <div className="absolute inset-0 bg-[#060709]/55" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-[#060709]/40" />
           </motion.div>
 
-          {/* ═══ HEADLIGHT FLASH SYSTEM ═══ */}
+          {/* DARKNESS OVERLAY — this is what "blinks"
+              High opacity = dark (headlights off)
+              Low opacity = bright (headlights on)
+              The car itself becomes brighter/darker */}
+          <motion.div
+            initial={{ opacity: 0.65 }}
+            animate={startFlash ? darknessKeyframes : { opacity: 0.65 }}
+            transition={startFlash ? { duration: 2.6, times, ease: 'easeInOut' } : { duration: 0 }}
+            className="absolute inset-0 bg-[#030405] z-10"
+          />
+
+          {/* Gradient overlays — always on, for cinematic depth */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#030405] via-transparent to-[#030405]/30 pointer-events-none" />
+
+          {/* WARM GLOW — subtle warm tint when headlights "on"
+              Simulates warm light bouncing off the ground and surroundings */}
           {startFlash && (
-            <div className="absolute inset-0 z-20 pointer-events-none">
-
-              {/* LEFT HEADLIGHT — positioned relative to center for mobile compat */}
-              {/* Hot core — small, bright, sharp */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={blinkKeyframes}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(calc(-50% - min(18vw, 200px)), calc(-50% - 2vh))',
-                  width: 'min(18vw, 160px)',
-                  height: 'min(9vw, 80px)',
-                  background: 'radial-gradient(ellipse 100% 70%, rgba(255,253,242,1) 0%, rgba(255,248,225,0.7) 35%, rgba(255,240,200,0.15) 70%, transparent 100%)',
-                  filter: 'blur(3px)',
-                }}
-              />
-              {/* Left — medium glow ring */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={blinkKeyframes}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(calc(-50% - min(18vw, 200px)), calc(-50% - 2vh))',
-                  width: 'min(30vw, 300px)',
-                  height: 'min(18vw, 180px)',
-                  background: 'radial-gradient(ellipse 80% 60%, rgba(255,250,235,0.35) 0%, rgba(255,245,215,0.1) 50%, transparent 80%)',
-                  filter: 'blur(15px)',
-                }}
-              />
-              {/* Left — wide atmospheric haze */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: blinkKeyframes.opacity.map(v => v * 0.5),
-                }}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(calc(-50% - min(15vw, 160px)), calc(-50% + 2vh))',
-                  width: 'min(50vw, 500px)',
-                  height: 'min(35vw, 350px)',
-                  background: 'radial-gradient(ellipse 55% 40%, rgba(255,250,235,0.15) 0%, transparent 70%)',
-                  filter: 'blur(40px)',
-                }}
-              />
-
-              {/* RIGHT HEADLIGHT — mirror of left */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={blinkKeyframes}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(calc(-50% + min(18vw, 200px)), calc(-50% - 2vh))',
-                  width: 'min(18vw, 160px)',
-                  height: 'min(9vw, 80px)',
-                  background: 'radial-gradient(ellipse 100% 70%, rgba(255,253,242,1) 0%, rgba(255,248,225,0.7) 35%, rgba(255,240,200,0.15) 70%, transparent 100%)',
-                  filter: 'blur(3px)',
-                }}
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={blinkKeyframes}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(calc(-50% + min(18vw, 200px)), calc(-50% - 2vh))',
-                  width: 'min(30vw, 300px)',
-                  height: 'min(18vw, 180px)',
-                  background: 'radial-gradient(ellipse 80% 60%, rgba(255,250,235,0.35) 0%, rgba(255,245,215,0.1) 50%, transparent 80%)',
-                  filter: 'blur(15px)',
-                }}
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: blinkKeyframes.opacity.map(v => v * 0.5),
-                }}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute"
-                style={{
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(calc(-50% + min(15vw, 160px)), calc(-50% + 2vh))',
-                  width: 'min(50vw, 500px)',
-                  height: 'min(35vw, 350px)',
-                  background: 'radial-gradient(ellipse 55% 40%, rgba(255,250,235,0.15) 0%, transparent 70%)',
-                  filter: 'blur(40px)',
-                }}
-              />
-
-              {/* AMBIENT — screen-wide flash (very subtle) */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: blinkKeyframes.opacity.map(v => v * 0.04),
-                }}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute inset-0 bg-white"
-              />
-
-              {/* GROUND REFLECTION — below car */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: blinkKeyframes.opacity.map(v => v * 0.7),
-                }}
-                transition={{ duration: 2.4, times: blinkTimes, ease: 'easeOut' }}
-                className="absolute bottom-0 left-0 right-0 h-[20vh]"
-                style={{
-                  background: 'linear-gradient(to top, rgba(255,250,235,0.07) 0%, rgba(255,248,225,0.02) 40%, transparent 100%)',
-                }}
-              />
-            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={glowKeyframes}
+              transition={{ duration: 2.6, times, ease: 'easeInOut' }}
+              className="absolute inset-0 z-20 pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse 80% 60% at 50% 55%, rgba(255,245,220,0.12) 0%, transparent 70%)',
+              }}
+            />
           )}
 
           {/* Brand watermark */}
