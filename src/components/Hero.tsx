@@ -6,7 +6,7 @@ import { ArrowRight, MessageCircle } from 'lucide-react';
 
 export function Hero() {
   return (
-    <section className="relative min-h-svh flex items-end overflow-hidden bg-bg-primary">
+    <section className="relative min-h-svh flex flex-col justify-end overflow-hidden bg-bg-primary">
       {/* ═══ IMAGE ═══ */}
       <div className="absolute inset-0">
         <Image
@@ -14,7 +14,7 @@ export function Hero() {
           alt="Bugatti Chiron"
           fill
           sizes="100vw"
-          className="object-cover object-[center_30%]"
+          className="object-contain md:object-cover object-center"
           priority
         />
         {/* Gradient overlays */}
