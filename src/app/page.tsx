@@ -1,3 +1,4 @@
+import { PageLoader } from '@/components/PageLoader';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { PopularCars } from '@/components/PopularCars';
@@ -15,6 +16,7 @@ import { WhatsAppButton } from '@/components/WhatsAppButton';
 export default function Home() {
   return (
     <div className="min-h-screen bg-bg-primary">
+      <PageLoader />
       <ScrollProgress />
       <Header />
 
