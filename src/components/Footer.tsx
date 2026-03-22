@@ -37,15 +37,15 @@ export function Footer() {
     <footer className="bg-bg-elevated relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-border" />
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-20">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-12 py-20">
         {/* Main grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div>
-            <span className="text-lg font-display font-light tracking-[0.2em] text-text-primary uppercase block mb-6">
+            <span className="text-[15px] font-display font-normal tracking-[0.25em] text-text-primary uppercase block mb-6">
               Alicante Luxe Drive
             </span>
-            <p className="text-sm text-text-secondary font-light leading-relaxed mb-8">
+            <p className="text-[13px] font-body font-light text-text-secondary leading-relaxed mb-8">
               Премиальная аренда автомобилей в Аликанте и по всей Испании
             </p>
 
@@ -53,7 +53,7 @@ export function Footer() {
             <div className="space-y-3">
               <a
                 href="tel:+34123456789"
-                className="flex items-center gap-3 text-sm text-text-tertiary hover:text-text-primary transition-colors"
+                className="flex items-center gap-3 text-[13px] font-body text-text-tertiary hover:text-text-primary transition-colors"
               >
                 <Phone size={14} />
                 +34 123 456 789
@@ -62,19 +62,19 @@ export function Footer() {
                 href="https://wa.me/34123456789"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm text-text-tertiary hover:text-[#25D366] transition-colors"
+                className="flex items-center gap-3 text-[13px] font-body text-text-tertiary hover:text-[#25D366] transition-colors"
               >
                 <MessageCircle size={14} />
                 WhatsApp
               </a>
               <a
                 href="mailto:info@alicanteluxedrive.com"
-                className="flex items-center gap-3 text-sm text-text-tertiary hover:text-text-primary transition-colors"
+                className="flex items-center gap-3 text-[13px] font-body text-text-tertiary hover:text-text-primary transition-colors"
               >
                 <Mail size={14} />
                 info@alicanteluxedrive.com
               </a>
-              <div className="flex items-start gap-3 text-sm text-text-tertiary">
+              <div className="flex items-start gap-3 text-[13px] font-body text-text-tertiary">
                 <MapPin size={14} className="flex-shrink-0 mt-0.5" />
                 <span>Aeropuerto de Alicante-Elche, 03195 L&apos;Altet, Alicante</span>
               </div>
@@ -84,7 +84,7 @@ export function Footer() {
           {/* Menu sections */}
           {menuSections.map((section) => (
             <div key={section.title}>
-              <h4 className="text-xs tracking-[0.1em] uppercase text-text-tertiary mb-6">
+              <h4 className="text-[11px] font-body font-medium tracking-[0.12em] uppercase text-text-tertiary mb-6">
                 {section.title}
               </h4>
               <ul className="space-y-3">
@@ -92,7 +92,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-text-secondary hover:text-text-primary transition-colors duration-300"
+                      className="text-[13px] font-body font-light text-text-secondary hover:text-text-primary transition-colors duration-300"
                     >
                       {link.label}
                     </a>
@@ -107,14 +107,11 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 py-8 border-t border-border">
           {/* Payment methods */}
           <div className="flex items-center gap-6">
-            <span className="text-xs text-text-tertiary">Принимаем:</span>
+            <span className="text-[11px] font-body text-text-tertiary">Принимаем:</span>
             <div className="flex items-center gap-4 text-text-tertiary opacity-50">
-              {/* Visa */}
-              <span className="text-xs font-bold tracking-wider">VISA</span>
-              {/* Mastercard */}
-              <span className="text-xs font-bold tracking-wider">MC</span>
-              {/* Amex */}
-              <span className="text-xs font-bold tracking-wider">AMEX</span>
+              <span className="text-[11px] font-body font-medium tracking-[0.1em]">VISA</span>
+              <span className="text-[11px] font-body font-medium tracking-[0.1em]">MC</span>
+              <span className="text-[11px] font-body font-medium tracking-[0.1em]">AMEX</span>
             </div>
           </div>
 
@@ -128,7 +125,7 @@ export function Footer() {
               <a
                 key={social.label}
                 href={social.href}
-                className="text-xs text-text-tertiary hover:text-text-primary transition-colors"
+                className="text-[12px] font-body text-text-tertiary hover:text-text-primary transition-colors"
               >
                 {social.label}
               </a>
@@ -139,10 +136,10 @@ export function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between gap-4">
-            <p className="text-xs text-text-tertiary">
+            <p className="text-[11px] font-body text-text-tertiary">
               {'\u00A9'} 2026 Alicante Luxe Drive. Все права защищены. CIF: B12345678
             </p>
-            <p className="text-xs text-text-tertiary max-w-lg">
+            <p className="text-[10px] font-body text-text-tertiary max-w-lg">
               Для аренды необходимы водительские права категории B, минимальный возраст 25 лет и кредитная карта. Все автомобили застрахованы. Цены указаны без учёта депозита.
             </p>
           </div>

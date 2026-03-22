@@ -41,33 +41,30 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-32 lg:py-40 bg-bg-surface relative">
+    <section className="py-28 lg:py-36 bg-bg-surface relative">
       {/* Divider top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-border" />
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col md:flex-row md:items-end md:justify-between mb-16"
         >
           <div>
-            <h2
-              className="font-display font-light text-text-primary tracking-tight"
-              style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
-            >
+            <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-display font-light text-text-primary tracking-tight">
               <span className="text-gold">Отзывы</span>
             </h2>
-            <p className="text-text-secondary mt-4 font-light">
+            <p className="text-text-secondary mt-5 font-light">
               4.9 из 5 на Google Reviews (127 отзывов)
             </p>
           </div>
         </motion.div>
 
-        {/* Testimonials Grid — all visible */}
+        {/* Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <motion.div
@@ -75,7 +72,7 @@ export function Testimonials() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
               className="bg-bg-elevated border border-border p-8 lg:p-10 flex flex-col"
             >
               {/* Stars */}
@@ -83,15 +80,15 @@ export function Testimonials() {
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star
                     key={i}
-                    size={14}
+                    size={12}
                     className="fill-gold text-gold"
                   />
                 ))}
               </div>
 
               {/* Text */}
-              <p className="text-text-secondary font-light leading-relaxed mb-8 flex-1 text-[15px]">
-                &quot;{testimonial.text}&quot;
+              <p className="text-[14px] font-body font-light text-text-secondary leading-[1.7] mb-8 flex-1">
+                {testimonial.text}
               </p>
 
               {/* Divider */}
@@ -101,23 +98,23 @@ export function Testimonials() {
               <div className="flex items-center gap-4">
                 {/* Avatar with initials */}
                 <div className="w-10 h-10 bg-bg-surface border border-border flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-medium text-gold tracking-wide">
+                  <span className="text-[10px] font-medium text-gold tracking-wide">
                     {testimonial.initials}
                   </span>
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm font-medium text-text-primary">
+                  <div className="text-[13px] font-body font-medium text-text-primary">
                     {testimonial.name}
                   </div>
-                  <div className="text-xs text-text-tertiary">
+                  <div className="text-[11px] font-body text-text-tertiary">
                     {testimonial.location} · {testimonial.car}, {testimonial.date}
                   </div>
                 </div>
               </div>
 
               {/* Source */}
-              <div className="mt-4 text-xs text-text-tertiary">
+              <div className="mt-4 text-[10px] font-body text-text-tertiary">
                 Verified on {testimonial.source}
               </div>
             </motion.div>

@@ -38,64 +38,57 @@ const benefits = [
 
 export function WhyUs() {
   return (
-    <section id="about" className="py-32 lg:py-40 bg-bg-primary relative">
+    <section id="about" className="py-28 lg:py-36 bg-bg-primary relative">
       {/* Divider top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-border" />
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-20"
         >
-          <h2
-            className="font-display font-light text-text-primary tracking-tight"
-            style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
-          >
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-display font-light text-text-primary tracking-tight">
             Почему клиенты{' '}
             <span className="text-gold">выбирают нас</span>
           </h2>
-          <p className="text-text-secondary mt-4 max-w-2xl font-light">
+          <p className="text-text-secondary mt-5 max-w-2xl font-light">
             Собственный автопарк, собственная команда, прямые условия. С 2020 года мы специализируемся исключительно на аренде премиальных автомобилей в Аликанте.
           </p>
         </motion.div>
 
-        {/* Benefits — clean grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-0">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <motion.div
-                key={benefit.title}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`p-8 lg:p-10 border-border ${
-                  index % 3 !== 0 ? 'lg:border-l' : ''
-                } ${index >= 3 ? 'lg:border-t' : ''} ${
-                  index % 2 !== 0 ? 'md:border-l lg:border-l-0' : ''
-                } ${index >= 2 ? 'md:border-t lg:border-t-0' : ''} ${
-                  index % 3 !== 0 ? 'lg:border-l' : ''
-                }`}
-              >
-                <Icon
-                  size={28}
-                  strokeWidth={1.5}
-                  className="text-gold mb-6"
-                />
-                <h3 className="text-base font-body font-medium text-text-primary mb-3 leading-snug">
-                  {benefit.title}
-                </h3>
-                <p className="text-sm text-text-secondary font-light leading-relaxed">
-                  {benefit.description}
-                </p>
-              </motion.div>
-            );
-          })}
+        {/* Benefits — clean grid with top border */}
+        <div className="border-t border-border">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px">
+            {benefits.map((benefit, index) => {
+              const Icon = benefit.icon;
+              return (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.06 }}
+                  className="p-8 lg:p-10"
+                >
+                  <Icon
+                    size={24}
+                    strokeWidth={1.5}
+                    className="text-gold mb-6"
+                  />
+                  <h3 className="text-[15px] font-body font-medium text-text-primary mb-3 leading-snug">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-[13px] font-body font-light text-text-secondary leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

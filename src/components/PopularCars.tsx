@@ -85,40 +85,37 @@ export function PopularCars() {
       : carData.filter((car) => car.category === activeFilter);
 
   return (
-    <section id="cars" className="py-32 lg:py-40 bg-bg-primary relative">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section id="cars" className="py-28 lg:py-36 bg-bg-primary relative">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16"
         >
-          <h2
-            className="font-display font-light text-text-primary tracking-tight"
-            style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
-          >
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-display font-light text-text-primary tracking-tight">
             <span className="text-gold">Автопарк</span>
           </h2>
-          <p className="text-text-secondary mt-4 max-w-xl font-light">
+          <p className="text-text-secondary mt-5 max-w-xl font-light">
             Собственный автопарк из 25 премиальных автомобилей. Каждый проходит предрейсовую подготовку перед выдачей.
           </p>
         </motion.div>
 
-        {/* Filters — underline tabs */}
+        {/* Filters */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.06 }}
           className="flex gap-8 mb-12 border-b border-border"
         >
           {filters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`pb-3 text-sm tracking-wide transition-colors duration-300 relative ${
+              className={`pb-3 text-[13px] font-body tracking-wide transition-colors duration-300 relative ${
                 activeFilter === filter
                   ? 'text-text-primary'
                   : 'text-text-tertiary hover:text-text-secondary'
@@ -134,7 +131,7 @@ export function PopularCars() {
               )}
             </button>
           ))}
-          <span className="ml-auto pb-3 text-xs text-text-tertiary tracking-wide self-end">
+          <span className="ml-auto pb-3 text-[11px] text-text-tertiary tracking-wide self-end">
             {filteredCars.length} автомобилей
           </span>
         </motion.div>
@@ -147,11 +144,11 @@ export function PopularCars() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
               className="group bg-bg-elevated border border-border hover:border-gold/40 transition-colors duration-300 cursor-pointer"
             >
               {/* Image */}
-              <div className="relative overflow-hidden aspect-[16/10]">
+              <div className="relative overflow-hidden aspect-[16/9]">
                 <Image
                   src={car.image}
                   alt={car.name}
@@ -163,7 +160,7 @@ export function PopularCars() {
 
                 {/* Badge */}
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1.5 bg-bg-primary/80 backdrop-blur-sm text-xs tracking-[0.08em] uppercase text-text-secondary border border-border">
+                  <span className="px-2.5 py-1 bg-bg-primary/80 backdrop-blur-sm text-[10px] tracking-[0.1em] uppercase text-text-secondary border border-border">
                     {car.badge}
                   </span>
                 </div>
@@ -171,13 +168,13 @@ export function PopularCars() {
 
               {/* Content */}
               <div className="p-6 lg:p-8">
-                <h3 className="text-xl font-body font-medium text-text-primary mb-3">
+                <h3 className="text-lg font-display font-normal text-text-primary mb-3">
                   {car.name}
                 </h3>
 
-                {/* Specs — single line */}
-                <p className="text-sm text-text-tertiary mb-1">{car.specs}</p>
-                <p className="text-sm text-text-tertiary">{car.interior}</p>
+                {/* Specs */}
+                <p className="text-[13px] font-body text-text-tertiary mb-1">{car.specs}</p>
+                <p className="text-[13px] font-body text-text-tertiary">{car.interior}</p>
 
                 {/* Divider */}
                 <div className="h-px bg-border my-5" />
@@ -185,24 +182,24 @@ export function PopularCars() {
                 {/* Price */}
                 <div className="mb-6">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-display font-light text-text-primary">
+                    <span className="text-xl font-display font-normal text-text-primary">
                       {'\u20AC'}{car.pricePerDay}
                     </span>
-                    <span className="text-sm text-text-tertiary">/ день</span>
+                    <span className="text-[12px] text-text-tertiary">/ день</span>
                   </div>
-                  <p className="text-xs text-text-tertiary mt-1">
+                  <p className="text-[11px] text-text-tertiary mt-1">
                     Депозит {'\u20AC'}{car.deposit.toLocaleString()}
                   </p>
                 </div>
 
                 {/* CTA Buttons */}
                 <div className="flex gap-3">
-                  <button className="flex-1 py-3 border border-border text-sm text-text-secondary hover:border-gold/40 hover:text-text-primary transition-colors duration-300">
+                  <button className="flex-1 py-2.5 border border-border text-[12px] font-body uppercase tracking-[0.06em] text-text-secondary hover:border-gold/40 hover:text-text-primary transition-colors duration-300">
                     Подробнее
                   </button>
-                  <button className="flex-1 py-3 bg-gold text-bg-primary text-sm font-medium hover:bg-gold-light transition-colors duration-300 flex items-center justify-center gap-2">
+                  <button className="flex-1 py-2.5 bg-gold text-bg-primary text-[12px] font-body font-medium uppercase tracking-[0.06em] hover:bg-gold-light transition-colors duration-300 flex items-center justify-center gap-2">
                     Забронировать
-                    <ArrowRight size={14} />
+                    <ArrowRight size={12} />
                   </button>
                 </div>
               </div>

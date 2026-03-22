@@ -22,10 +22,10 @@ export function ScrollToTop() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-24 z-50 w-12 h-12 bg-bg-elevated border border-border hover:border-gold text-text-secondary hover:text-gold flex items-center justify-center transition-colors duration-300"
+          className="fixed bottom-6 right-[4.5rem] z-50 w-10 h-10 bg-bg-elevated border border-border hover:border-gold text-text-secondary hover:text-gold flex items-center justify-center transition-colors duration-300"
           aria-label="Наверх"
         >
-          <ArrowUp size={18} />
+          <ArrowUp size={16} />
         </motion.button>
       )}
     </AnimatePresence>

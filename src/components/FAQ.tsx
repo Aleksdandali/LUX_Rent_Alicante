@@ -43,7 +43,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 lg:py-40 bg-bg-surface relative">
+    <section className="py-28 lg:py-36 bg-bg-surface relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-border" />
 
       <div className="max-w-[800px] mx-auto px-6 lg:px-12">
@@ -52,18 +52,15 @@ export function FAQ() {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16"
         >
-          <h2
-            className="font-display font-light text-text-primary tracking-tight"
-            style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
-          >
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-display font-light text-text-primary tracking-tight">
             Частые <span className="text-gold">вопросы</span>
           </h2>
         </motion.div>
 
-        {/* FAQ Items — clean accordion with line dividers */}
+        {/* FAQ Items */}
         <div>
           {faqs.map((faq, index) => (
             <motion.div
@@ -71,18 +68,18 @@ export function FAQ() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
               className="border-b border-border"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full py-6 flex items-center justify-between text-left group"
               >
-                <span className="text-[15px] text-text-primary group-hover:text-gold transition-colors duration-300 pr-8">
+                <span className="text-[14px] font-body font-normal text-text-primary group-hover:text-gold transition-colors duration-300 pr-8">
                   {faq.question}
                 </span>
                 <span className="flex-shrink-0 text-text-tertiary">
-                  {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
+                  {openIndex === index ? <Minus size={14} /> : <Plus size={14} />}
                 </span>
               </button>
 
@@ -95,7 +92,7 @@ export function FAQ() {
                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                     className="overflow-hidden"
                   >
-                    <p className="pb-6 text-sm text-text-secondary font-light leading-relaxed">
+                    <p className="pb-6 text-[13px] font-body font-light text-text-secondary leading-[1.8]">
                       {faq.answer}
                     </p>
                   </motion.div>
@@ -110,26 +107,26 @@ export function FAQ() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-16 p-8 border border-border"
         >
           <h3 className="text-lg font-display font-light text-text-primary mb-2">
             Не нашли ответ?
           </h3>
-          <p className="text-sm text-text-secondary mb-6">
+          <p className="text-[13px] font-body text-text-secondary mb-6">
             Свяжитесь с нами — ответим в течение 30 минут
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="tel:+34123456789"
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-gold text-bg-primary text-sm font-medium hover:bg-gold-light transition-colors"
+              className="flex items-center justify-center gap-2 px-8 py-3.5 bg-gold text-bg-primary text-[12px] font-body font-medium tracking-[0.06em] uppercase hover:bg-gold-light transition-colors"
             >
               <Phone size={14} />
               Позвонить
             </a>
             <a
               href="mailto:info@alicanteluxedrive.com"
-              className="flex items-center justify-center gap-2 px-6 py-3 border border-border text-sm text-text-secondary hover:text-text-primary hover:border-gold/40 transition-colors"
+              className="flex items-center justify-center gap-2 px-8 py-3.5 border border-border text-[12px] font-body font-medium tracking-[0.06em] uppercase text-text-secondary hover:text-text-primary hover:border-gold/40 transition-colors"
             >
               <Mail size={14} />
               Написать email

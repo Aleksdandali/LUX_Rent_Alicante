@@ -31,17 +31,17 @@ export function Header() {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20 lg:h-24">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <motion.a
             href="#"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5 }}
             className="flex-shrink-0"
           >
-            <span className="text-base lg:text-lg font-display font-light tracking-[0.2em] text-text-primary uppercase">
+            <span className="text-[15px] font-display font-normal tracking-[0.25em] text-text-primary uppercase">
               Alicante <span className="text-gold">Luxe</span> Drive
             </span>
           </motion.a>
@@ -54,8 +54,8 @@ export function Header() {
                 href={item.href}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="text-sm tracking-wide text-text-secondary hover:text-text-primary transition-colors duration-300 relative group"
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.06 }}
+                className="text-[13px] font-body font-normal tracking-[0.04em] text-text-secondary hover:text-text-primary transition-colors duration-300 relative group"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold transition-all duration-300 group-hover:w-full" />
@@ -68,7 +68,7 @@ export function Header() {
             {/* Phone */}
             <a
               href="tel:+34123456789"
-              className="text-xs tracking-wide text-text-tertiary hover:text-text-primary transition-colors duration-300"
+              className="text-[13px] font-body font-normal tracking-[0.04em] text-text-tertiary hover:text-text-primary transition-colors duration-300"
             >
               +34 123 456 789
             </a>
@@ -76,7 +76,7 @@ export function Header() {
             <div className="w-px h-4 bg-border" />
 
             {/* Language switcher */}
-            <div className="flex items-center gap-1 text-xs tracking-wide">
+            <div className="flex items-center gap-1 text-[13px] font-body tracking-[0.04em]">
               {languages.map((lang, i) => (
                 <span key={lang} className="flex items-center">
                   <button
@@ -115,8 +115,8 @@ export function Header() {
               href="#booking"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="px-7 py-2.5 bg-gold text-bg-primary text-sm font-body font-medium tracking-wide hover:bg-gold-light transition-colors duration-300"
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="px-6 py-2.5 bg-gold text-bg-primary text-[12px] font-body font-medium tracking-[0.06em] uppercase hover:bg-gold-light transition-colors duration-300"
             >
               Забронировать
             </motion.a>
@@ -141,14 +141,14 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden bg-bg-primary/98 backdrop-blur-xl border-t border-border"
+            className="lg:hidden fixed inset-0 top-16 bg-bg-primary z-50"
           >
             <div className="px-6 py-8 space-y-1">
               {menuItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block py-3 text-base font-light tracking-wide text-text-secondary hover:text-text-primary transition-colors border-b border-border"
+                  className="block py-3 text-[15px] font-body font-normal tracking-[0.04em] text-text-secondary hover:text-text-primary transition-colors border-b border-border"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
@@ -157,7 +157,7 @@ export function Header() {
 
               <div className="pt-6 space-y-4">
                 {/* Language */}
-                <div className="flex items-center gap-3 text-sm">
+                <div className="flex items-center gap-3 text-[13px] font-body">
                   {languages.map((lang) => (
                     <button
                       key={lang}
@@ -176,7 +176,7 @@ export function Header() {
                 {/* Mobile CTA */}
                 <a
                   href="#booking"
-                  className="block w-full px-7 py-3 bg-gold text-bg-primary text-sm font-medium tracking-wide text-center"
+                  className="block w-full px-6 py-2.5 bg-gold text-bg-primary text-[12px] font-body font-medium tracking-[0.06em] uppercase text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Забронировать
@@ -186,7 +186,7 @@ export function Header() {
                   href="https://wa.me/34123456789"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 border border-border text-text-secondary text-sm"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 border border-border text-text-secondary text-[12px] font-body font-medium tracking-[0.06em] uppercase"
                 >
                   <MessageCircle size={16} />
                   Написать в WhatsApp

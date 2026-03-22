@@ -23,10 +23,10 @@ export function WhatsAppButton() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-8 right-8 z-50 w-14 h-14 bg-[#25D366] hover:bg-[#20BD5A] text-white flex items-center justify-center shadow-lg transition-colors duration-300"
+          className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-[#25D366] hover:bg-[#20BD5A] text-white flex items-center justify-center shadow-lg transition-colors duration-300"
           aria-label="Написать в WhatsApp"
         >
-          <MessageCircle size={24} />
+          <MessageCircle size={22} />
         </motion.a>
       )}
     </AnimatePresence>

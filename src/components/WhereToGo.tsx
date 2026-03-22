@@ -77,26 +77,23 @@ export function WhereToGo() {
       : destinations.filter((d) => d.region === activeTab);
 
   return (
-    <section id="routes" className="py-32 lg:py-40 bg-bg-surface relative">
+    <section id="routes" className="py-28 lg:py-36 bg-bg-surface relative">
       {/* Divider top */}
       <div className="absolute top-0 left-0 right-0 h-px bg-border" />
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="max-w-[1320px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16"
         >
-          <h2
-            className="font-display font-light text-text-primary tracking-tight"
-            style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
-          >
+          <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-display font-light text-text-primary tracking-tight">
             Куда <span className="text-gold">поехать</span>
           </h2>
-          <p className="text-text-secondary mt-4 max-w-xl font-light">
+          <p className="text-text-secondary mt-5 max-w-xl font-light">
             Лучшие маршруты из Аликанте по побережью и вглубь Испании
           </p>
         </motion.div>
@@ -107,7 +104,7 @@ export function WhereToGo() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`pb-3 text-sm tracking-wide transition-colors duration-300 relative ${
+              className={`pb-3 text-[13px] font-body tracking-wide transition-colors duration-300 relative ${
                 activeTab === tab.key
                   ? 'text-text-primary'
                   : 'text-text-tertiary hover:text-text-secondary'
@@ -133,11 +130,11 @@ export function WhereToGo() {
                 key={destination.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.08 }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
                 className="group flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[calc(50%-12px)] bg-bg-elevated border border-border hover:border-gold/40 transition-colors duration-300 cursor-pointer"
               >
                 <div className="flex flex-col lg:flex-row h-full">
-                  {/* Image — left side */}
+                  {/* Image */}
                   <div className="relative overflow-hidden lg:w-1/2 aspect-[16/10] lg:aspect-auto lg:min-h-[280px]">
                     <Image
                       src={destination.image}
@@ -149,26 +146,26 @@ export function WhereToGo() {
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-elevated/60 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-bg-elevated/20" />
                   </div>
 
-                  {/* Content — right side */}
+                  {/* Content */}
                   <div className="p-6 lg:p-8 lg:w-1/2 flex flex-col justify-center">
-                    <h3 className="text-2xl font-display font-light text-text-primary mb-3">
+                    <h3 className="text-xl font-display font-normal text-text-primary mb-3">
                       {destination.name}
                     </h3>
-                    <p className="text-sm text-text-secondary font-light leading-relaxed mb-6">
+                    <p className="text-[13px] font-body text-text-secondary font-light leading-relaxed mb-6">
                       {destination.description}
                     </p>
 
                     <div className="space-y-3 mb-8">
-                      <div className="flex items-center gap-2 text-sm text-text-tertiary">
+                      <div className="flex items-center gap-2 text-[13px] font-body text-text-tertiary">
                         <Clock size={14} className="text-gold" />
                         <span>{destination.time} из Аликанте</span>
                       </div>
-                      <div className="text-sm text-text-tertiary">
+                      <div className="text-[13px] font-body text-text-tertiary">
                         Лучше всего на: <span className="text-text-secondary">{destination.bestCar}</span>
                       </div>
                     </div>
 
-                    <button className="inline-flex items-center gap-2 text-sm text-gold hover:text-gold-light transition-colors duration-300 group/btn">
+                    <button className="inline-flex items-center gap-2 text-[13px] font-body uppercase tracking-[0.06em] text-gold hover:text-gold-light transition-colors duration-300 group/btn">
                       Построить маршрут
                       <ArrowRight
                         size={14}
@@ -181,11 +178,6 @@ export function WhereToGo() {
             ))}
           </div>
         </div>
-
-        {/* Scroll hint */}
-        <p className="text-xs text-text-tertiary mt-6 tracking-wide">
-          Листайте для просмотра всех маршрутов
-        </p>
       </div>
     </section>
   );
