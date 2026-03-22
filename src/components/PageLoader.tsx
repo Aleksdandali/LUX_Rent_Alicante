@@ -33,25 +33,22 @@ export function PageLoader() {
           transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[9999] bg-black"
         >
-          {/* Car — bg-contain shows full car on any screen */}
+          {/* Car — bg-cover fills EVERY screen edge to edge */}
           <div
-            className="absolute inset-0 bg-contain bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage: 'url(https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80)',
               opacity: 0.55,
             }}
           />
 
-          {/* Soften the black bars — blend edges into scene */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: 'radial-gradient(ellipse 100% 80% at 50% 50%, transparent 30%, rgba(0,0,0,0.7) 100%)',
-          }} />
+          {/* LEFT HEADLIGHT
+              Mobile: at very left edge (5%), car sides cropped by cover
+              Desktop: at ~13% from left */}
+          <div className="absolute top-[46%] left-0 md:top-[44%] md:left-[11%] w-16 h-8 md:w-28 md:h-14 -translate-y-1/2 pointer-events-none blur-lg md:blur-xl bg-white/80 rounded-full headlight-blink" />
 
-          {/* LEFT HEADLIGHT — 12% from left edge, 48% from top */}
-          <div className="absolute top-[48%] left-[10%] md:left-[13%] w-12 h-6 md:w-24 md:h-12 -translate-x-1/2 -translate-y-1/2 pointer-events-none blur-md md:blur-xl bg-white/90 rounded-full headlight-blink" />
-
-          {/* RIGHT HEADLIGHT — 12% from right edge, 48% from top */}
-          <div className="absolute top-[48%] right-[10%] md:right-[13%] w-12 h-6 md:w-24 md:h-12 translate-x-1/2 -translate-y-1/2 pointer-events-none blur-md md:blur-xl bg-white/90 rounded-full headlight-blink" />
+          {/* RIGHT HEADLIGHT */}
+          <div className="absolute top-[46%] right-0 md:top-[44%] md:right-[11%] w-16 h-8 md:w-28 md:h-14 -translate-y-1/2 pointer-events-none blur-lg md:blur-xl bg-white/80 rounded-full headlight-blink" />
 
           {/* Brand */}
           <div className="absolute bottom-6 inset-x-0 text-center z-10 opacity-0 animate-[fadeIn_0.5s_ease_1s_forwards]">

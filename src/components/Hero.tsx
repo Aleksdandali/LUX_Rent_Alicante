@@ -14,7 +14,7 @@ export function Hero() {
           alt="Bugatti Chiron"
           fill
           sizes="100vw"
-          className="object-contain md:object-cover object-center"
+          className="object-cover object-center"
           priority
         />
         {/* Gradient overlays */}
