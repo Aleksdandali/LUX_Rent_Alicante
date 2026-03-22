@@ -91,7 +91,7 @@ export function WhereToGo() {
           className="mb-16"
         >
           <h2
-            className="font-display font-normal text-text-primary tracking-tight"
+            className="font-display font-medium text-text-primary tracking-tight"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
           >
             Куда <span className="italic text-gold">поехать</span>
@@ -151,7 +151,7 @@ export function WhereToGo() {
 
                   {/* Content — right side */}
                   <div className="p-6 lg:p-8 lg:w-1/2 flex flex-col justify-center">
-                    <h3 className="text-2xl font-display font-normal text-text-primary mb-3">
+                    <h3 className="text-2xl font-display font-medium text-text-primary mb-3">
                       {destination.name}
                     </h3>
                     <p className="text-sm text-text-secondary font-light leading-relaxed mb-6">

@@ -1,20 +1,20 @@
 import type { Metadata } from 'next';
-import { Bodoni_Moda, DM_Sans } from 'next/font/google';
+import { Playfair_Display, Outfit } from 'next/font/google';
 import '@/styles/globals.css';
 
-const bodoni = Bodoni_Moda({
-  subsets: ['latin'],
+const playfair = Playfair_Display({
+  subsets: ['latin', 'cyrillic'],
   variable: '--font-display',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
 });
 
-const dmSans = DM_Sans({
+const outfit = Outfit({
   subsets: ['latin', 'latin-ext'],
   variable: '--font-body',
   display: 'swap',
-  weight: ['300', '400', '500'],
+  weight: ['200', '300', '400', '500'],
 });
 
 export const metadata: Metadata = {
@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${bodoni.variable} ${dmSans.variable}`}>
+    <html lang="ru" className={`${playfair.variable} ${outfit.variable}`}>
       <body>{children}</body>
     </html>
   );

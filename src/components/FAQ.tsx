@@ -56,7 +56,7 @@ export function FAQ() {
           className="mb-16"
         >
           <h2
-            className="font-display font-normal text-text-primary tracking-tight"
+            className="font-display font-medium text-text-primary tracking-tight"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
           >
             Частые <span className="italic text-gold">вопросы</span>
@@ -113,7 +113,7 @@ export function FAQ() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 p-8 border border-border"
         >
-          <h3 className="text-lg font-display font-normal text-text-primary mb-2">
+          <h3 className="text-lg font-display font-medium text-text-primary mb-2">
             Не нашли ответ?
           </h3>
           <p className="text-sm text-text-secondary mb-6">

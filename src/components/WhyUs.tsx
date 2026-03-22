@@ -52,7 +52,7 @@ export function WhyUs() {
           className="mb-20"
         >
           <h2
-            className="font-display font-normal text-text-primary tracking-tight"
+            className="font-display font-medium text-text-primary tracking-tight"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
           >
             Почему клиенты{' '}

@@ -43,7 +43,7 @@ export function CTABanner() {
             </span>
 
             <h2
-              className="font-display font-normal text-text-primary tracking-tight mb-6"
+              className="font-display font-medium text-text-primary tracking-tight mb-6"
               style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
             >
               Подберём автомобиль{' '}

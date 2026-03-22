@@ -41,8 +41,8 @@ export function Header() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-shrink-0"
           >
-            <span className="text-base lg:text-lg font-display font-normal tracking-[0.3em] text-text-primary uppercase" style={{ fontStyle: 'normal' }}>
-              Alicante Luxe Drive
+            <span className="text-base lg:text-lg font-display font-medium tracking-[0.2em] text-text-primary uppercase">
+              Alicante <span className="text-gold">Luxe</span> Drive
             </span>
           </motion.a>
 
