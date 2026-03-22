@@ -10,9 +10,21 @@ export function PageLoader() {
   useEffect(() => {
     if (ran.current) return;
     ran.current = true;
+
     if (sessionStorage.getItem('ald')) { setShow(false); return; }
-    const t = setTimeout(() => { setShow(false); sessionStorage.setItem('ald', '1'); }, 3200);
-    return () => clearTimeout(t);
+
+    // Lock scroll to top while loader is visible
+    window.scrollTo(0, 0);
+    document.body.style.overflow = 'hidden';
+
+    const t = setTimeout(() => {
+      setShow(false);
+      sessionStorage.setItem('ald', '1');
+      document.body.style.overflow = '';
+      window.scrollTo(0, 0);
+    }, 3200);
+
+    return () => { clearTimeout(t); document.body.style.overflow = ''; };
   }, []);
 
   if (!show) return null;
@@ -23,7 +35,7 @@ export function PageLoader() {
         <motion.div
           key="loader"
           exit={{ opacity: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.5, ease: [0.4, 0, 0.2, 1] }}
           className="fixed inset-0 z-[9999] bg-black"
         >
           {/* Car image:
