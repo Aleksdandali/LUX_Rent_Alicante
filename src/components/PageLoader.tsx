@@ -35,7 +35,7 @@ export function PageLoader() {
         >
           {/* Car — bg-cover fills EVERY screen edge to edge */}
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-[center_35%] md:bg-center"
             style={{
               backgroundImage: 'url(https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80)',
               opacity: 0.55,

@@ -14,12 +14,12 @@ export function Hero() {
           alt="Bugatti Chiron"
           fill
           sizes="100vw"
-          className="object-cover object-center"
+          className="object-cover object-[center_35%] md:object-center"
           priority
         />
-        {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-[#060709]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/60 to-transparent" />
+        {/* Gradient overlays — lighter on mobile so car is visible */}
+        <div className="absolute inset-0 bg-[#060709]/30 md:bg-[#060709]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/30 md:via-[#060709]/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#060709]/70 via-transparent to-transparent hidden md:block" />
       </div>
 
