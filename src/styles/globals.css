@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════
+   ALICANTE LUXE DRIVE — Design System v3
+   Bodoni Moda + DM Sans
+   Cinematic navy-black + Rich gold
+   ═══════════════════════════════════════════════════ */
+
+@theme inline {
+  --color-gold: #D3AC2C;
+  --color-gold-light: #B78D24;
+  --color-gold-muted: rgba(211, 172, 44, 0.15);
+  --color-gold-subtle: rgba(211, 172, 44, 0.07);
+
+  --color-bg-primary: #050608;
+  --color-bg-elevated: #0D0F14;
+  --color-bg-surface: #12141A;
+  --color-bg-hover: #181B22;
+
+  --color-text-primary: #F5F4EF;
+  --color-text-secondary: rgba(245, 244, 239, 0.70);
+  --color-text-tertiary: rgba(245, 244, 239, 0.45);
+
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.14);
+
+  --font-display: 'Bodoni Moda', 'Didot', 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: var(--color-gold-muted);
+    color: var(--color-text-primary);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(211, 172, 44, 0.25);
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(211, 172, 44, 0.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

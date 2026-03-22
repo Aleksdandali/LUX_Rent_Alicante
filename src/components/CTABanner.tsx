@@ -1,3 +1,6 @@
+'use client';
+
+import Image from 'next/image';
 import { motion } from 'motion/react';
 import { MessageCircle, Phone } from 'lucide-react';
 
@@ -17,10 +20,12 @@ export function CTABanner() {
             className="lg:w-1/2"
           >
             <div className="relative overflow-hidden aspect-[4/3]">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1506616995931-556bc0c90c16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxSYW5nZSUyMFJvdmVyJTIwbHV4dXJ5JTIwU1VWfGVufDF8fHx8MTc3NDE3OTk2MHww&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Range Rover на побережье Испании"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
               />
             </div>
           </motion.div>

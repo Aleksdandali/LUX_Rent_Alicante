@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'motion/react';
 import { Car, Shield, MessageCircle, MapPin, Clock, FileCheck } from 'lucide-react';
 

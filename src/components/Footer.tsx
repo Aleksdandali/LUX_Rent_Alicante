@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+'use client';
+
 import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
 
 const menuSections = [
@@ -75,7 +76,7 @@ export function Footer() {
               </a>
               <div className="flex items-start gap-3 text-sm text-text-tertiary">
                 <MapPin size={14} className="flex-shrink-0 mt-0.5" />
-                <span>Aeropuerto de Alicante-Elche, 03195 L'Altet, Alicante</span>
+                <span>Aeropuerto de Alicante-Elche, 03195 L&apos;Altet, Alicante</span>
               </div>
             </div>
           </div>

@@ -1,3 +1,6 @@
+'use client';
+
+import Image from 'next/image';
 import { motion } from 'motion/react';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 
@@ -15,10 +18,13 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#050608] via-[#050608]/50 to-transparent z-10" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050608]/85 via-[#050608]/30 to-transparent z-10" />
         <div className="absolute inset-0 z-10" style={{ background: 'radial-gradient(circle at 50% 100%, rgba(5,6,8,0.8), transparent 60%)' }} />
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
           alt="Премиальный автомобиль на побережье Средиземного моря"
-          className="w-full h-full object-cover"
+          fill
+          sizes="100vw"
+          className="object-cover"
+          priority
         />
       </motion.div>
 

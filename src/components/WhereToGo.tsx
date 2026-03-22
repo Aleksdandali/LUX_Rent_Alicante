@@ -1,4 +1,7 @@
+'use client';
+
 import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'motion/react';
 import { Clock, ArrowRight } from 'lucide-react';
 
@@ -135,11 +138,13 @@ export function WhereToGo() {
               >
                 <div className="flex flex-col lg:flex-row h-full">
                   {/* Image — left side */}
-                  <div className="relative overflow-hidden lg:w-1/2 aspect-[16/10] lg:aspect-auto">
-                    <img
+                  <div className="relative overflow-hidden lg:w-1/2 aspect-[16/10] lg:aspect-auto lg:min-h-[280px]">
+                    <Image
                       src={destination.image}
                       alt={destination.name}
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
+                      fill
+                      sizes="(max-width: 768px) 85vw, (max-width: 1024px) 60vw, 25vw"
+                      className="object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-elevated/60 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-bg-elevated/20" />
                   </div>

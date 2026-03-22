@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'motion/react';
 import { Star } from 'lucide-react';
 
@@ -89,7 +91,7 @@ export function Testimonials() {
 
               {/* Text */}
               <p className="text-text-secondary font-light leading-relaxed mb-8 flex-1 text-[15px]">
-                "{testimonial.text}"
+                &quot;{testimonial.text}&quot;
               </p>
 
               {/* Divider */}
