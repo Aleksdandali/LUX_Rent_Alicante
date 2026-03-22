@@ -26,17 +26,21 @@ export function PageLoader() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="fixed inset-0 z-[9999] bg-black"
         >
-          {/* Car — fullscreen */}
+          {/* Car image:
+              Mobile: bg-contain — shows full car, dark bars above/below blend with bg
+              Desktop: bg-cover — fills entire screen */}
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-60"
+            className="absolute inset-0 bg-contain bg-center bg-no-repeat md:bg-cover opacity-60"
             style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=80)' }}
           />
 
-          {/* Left headlight glow */}
-          <div className="absolute top-[42%] left-[22%] md:top-[42%] md:left-[24%] w-20 h-10 md:w-32 md:h-16 pointer-events-none blur-xl md:blur-2xl bg-white/90 headlight-blink" />
+          {/* Left headlight glow
+              Mobile (contain): headlights at ~32% from left, ~48% from top
+              Desktop (cover):  headlights at ~24% from left, ~42% from top */}
+          <div className="absolute top-[48%] left-[30%] md:top-[42%] md:left-[24%] w-16 h-8 md:w-32 md:h-16 pointer-events-none blur-lg md:blur-2xl bg-white/90 rounded-full headlight-blink" />
 
           {/* Right headlight glow */}
-          <div className="absolute top-[42%] right-[22%] md:top-[42%] md:right-[24%] w-20 h-10 md:w-32 md:h-16 pointer-events-none blur-xl md:blur-2xl bg-white/90 headlight-blink" />
+          <div className="absolute top-[48%] right-[30%] md:top-[42%] md:right-[24%] w-16 h-8 md:w-32 md:h-16 pointer-events-none blur-lg md:blur-2xl bg-white/90 rounded-full headlight-blink" />
 
           {/* Brand */}
           <div className="absolute bottom-6 inset-x-0 text-center z-10 opacity-0 animate-[fadeIn_0.5s_ease_1s_forwards]">
@@ -48,7 +52,6 @@ export function PageLoader() {
           <style dangerouslySetInnerHTML={{ __html: `
             .headlight-blink {
               opacity: 0;
-              border-radius: 50%;
               animation: blink 2s ease-in-out 0.8s forwards;
               will-change: opacity;
             }
