@@ -1,56 +1,54 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 
 export function PageLoader() {
   const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState<'loading' | 'reveal' | 'done'>('loading');
-  const [flashCount, setFlashCount] = useState(0);
+  const [phase, setPhase] = useState<'loading' | 'flash' | 'done'>('loading');
+  const [flashVisible, setFlashVisible] = useState(false);
+  const [flashIndex, setFlashIndex] = useState(0);
 
-  // Progress counter 0 → 100
+  // Progress 0 → 100
   useEffect(() => {
     if (phase !== 'loading') return;
-
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        // Accelerate: slow start, fast middle, slow end
-        if (prev < 30) return prev + 1;
-        if (prev < 70) return prev + 2;
-        if (prev < 90) return prev + 1;
-        if (prev < 100) return prev + 0.5;
-        return 100;
+      setProgress((p) => {
+        if (p >= 100) return 100;
+        if (p < 20) return p + 0.8;
+        if (p < 60) return p + 1.5;
+        if (p < 85) return p + 1;
+        if (p < 95) return p + 0.5;
+        return p + 0.3;
       });
-    }, 30);
-
+    }, 25);
     return () => clearInterval(interval);
   }, [phase]);
 
-  // When progress hits 100 → start reveal phase (car flashes)
+  // When 100% → flash phase
   useEffect(() => {
     if (progress >= 100 && phase === 'loading') {
-      setTimeout(() => setPhase('reveal'), 300);
+      setTimeout(() => setPhase('flash'), 400);
     }
   }, [progress, phase]);
 
-  // 3 flashes then done
+  // 3 flashes
   useEffect(() => {
-    if (phase !== 'reveal') return;
-
-    const flashInterval = setInterval(() => {
-      setFlashCount((prev) => {
-        if (prev >= 6) {
-          // 6 = 3 on + 3 off cycles
-          clearInterval(flashInterval);
-          setTimeout(() => setPhase('done'), 400);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 200);
-
-    return () => clearInterval(flashInterval);
+    if (phase !== 'flash') return;
+    let count = 0;
+    const interval = setInterval(() => {
+      count++;
+      if (count <= 6) {
+        setFlashVisible(count % 2 === 1);
+        setFlashIndex(Math.ceil(count / 2));
+      } else {
+        clearInterval(interval);
+        setFlashVisible(false);
+        setTimeout(() => setPhase('done'), 500);
+      }
+    }, 180);
+    return () => clearInterval(interval);
   }, [phase]);
 
   return (
@@ -59,90 +57,85 @@ export function PageLoader() {
         <motion.div
           key="loader"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] bg-[#060709] flex flex-col items-center justify-center overflow-hidden"
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="fixed inset-0 z-[9999] bg-[#060709]"
         >
-          {/* Subtle radial glow behind car */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] opacity-20"
-            style={{
-              background: 'radial-gradient(ellipse, rgba(201,168,76,0.3), transparent 70%)',
-            }}
-          />
-
-          {/* Car image */}
+          {/* Car — FULLSCREEN background */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{
-              opacity: phase === 'reveal' && flashCount % 2 === 1 ? 0.3 : 1,
-              scale: 1,
-            }}
-            transition={{ duration: phase === 'reveal' ? 0.15 : 1, ease: 'easeOut' }}
-            className="relative w-[80vw] max-w-[700px] aspect-[16/9] mb-12"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: phase === 'flash' && !flashVisible ? 0.4 : 0.7, scale: 1 }}
+            transition={{ duration: phase === 'flash' ? 0.12 : 1.5, ease: 'easeOut' }}
+            className="absolute inset-0"
           >
             <Image
-              src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200"
+              src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
               alt="Luxury Car"
               fill
-              className="object-contain"
+              className="object-cover"
               priority
-              sizes="700px"
+              sizes="100vw"
             />
-
-            {/* Headlight flash effects */}
-            {phase === 'reveal' && flashCount % 2 === 0 && flashCount < 6 && (
-              <>
-                <div
-                  className="absolute top-[40%] left-[12%] w-24 h-12 blur-2xl animate-pulse"
-                  style={{ background: 'radial-gradient(ellipse, rgba(255,255,240,0.9), transparent)' }}
-                />
-                <div
-                  className="absolute top-[40%] right-[12%] w-24 h-12 blur-2xl animate-pulse"
-                  style={{ background: 'radial-gradient(ellipse, rgba(255,255,240,0.9), transparent)' }}
-                />
-              </>
-            )}
+            {/* Dark overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/40 to-[#060709]/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#060709]/50 via-transparent to-[#060709]" />
           </motion.div>
 
-          {/* Brand name */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-center mb-10"
-          >
-            <span className="text-sm md:text-base font-display font-medium tracking-[0.25em] text-text-primary uppercase">
-              Alicante <span className="text-gold">Luxe</span> Drive
-            </span>
-          </motion.div>
-
-          {/* Progress bar + percentage */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="w-48 md:w-64"
-          >
-            {/* Percentage */}
-            <div className="flex justify-between items-baseline mb-3">
-              <span className="text-xs tracking-[0.15em] uppercase text-text-tertiary">
-                Loading
-              </span>
-              <span className="text-2xl font-display font-medium text-text-primary tabular-nums">
-                {Math.floor(progress)}
-                <span className="text-sm text-text-tertiary ml-0.5">%</span>
-              </span>
-            </div>
-
-            {/* Bar */}
-            <div className="h-[1px] bg-border-hover relative overflow-hidden">
-              <motion.div
-                className="absolute top-0 left-0 h-full bg-gold"
-                style={{ width: `${progress}%` }}
-                transition={{ duration: 0.05 }}
+          {/* Headlight flashes — full-width glow */}
+          {phase === 'flash' && flashVisible && (
+            <>
+              <div
+                className="absolute top-[35%] left-[20%] w-40 h-20 blur-3xl z-20"
+                style={{ background: 'radial-gradient(ellipse, rgba(255,255,230,0.8), transparent)' }}
               />
-            </div>
-          </motion.div>
+              <div
+                className="absolute top-[35%] right-[20%] w-40 h-20 blur-3xl z-20"
+                style={{ background: 'radial-gradient(ellipse, rgba(255,255,230,0.8), transparent)' }}
+              />
+              {/* Screen flash */}
+              <div className="absolute inset-0 bg-white/[0.03] z-10" />
+            </>
+          )}
+
+          {/* Bottom content — brand + progress */}
+          <div className="absolute bottom-0 left-0 right-0 z-30 p-8 md:p-16">
+            {/* Brand */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="mb-8"
+            >
+              <span className="text-xs md:text-sm font-display font-light tracking-[0.3em] text-text-primary/80 uppercase">
+                Alicante <span className="text-gold">Luxe</span> Drive
+              </span>
+            </motion.div>
+
+            {/* Progress */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              {/* Bar */}
+              <div className="w-full max-w-md h-[1px] bg-white/10 relative mb-4">
+                <motion.div
+                  className="absolute top-0 left-0 h-full bg-gold"
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.05, ease: 'linear' }}
+                />
+              </div>
+
+              {/* Number */}
+              <div className="flex justify-between items-baseline max-w-md">
+                <span className="text-[10px] tracking-[0.2em] uppercase text-text-tertiary font-body">
+                  Loading experience
+                </span>
+                <span className="text-3xl md:text-4xl font-display font-light text-text-primary tabular-nums tracking-tight">
+                  {Math.floor(progress)}
+                </span>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       ) : null}
     </AnimatePresence>

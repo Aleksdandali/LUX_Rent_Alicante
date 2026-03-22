@@ -1,20 +1,19 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Outfit } from 'next/font/google';
+import { Space_Grotesk, Inter } from 'next/font/google';
 import '@/styles/globals.css';
 
-const playfair = Playfair_Display({
-  subsets: ['latin', 'cyrillic'],
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
   variable: '--font-display',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
+  weight: ['300', '400', '500', '600', '700'],
 });
 
-const outfit = Outfit({
-  subsets: ['latin', 'latin-ext'],
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
   variable: '--font-body',
   display: 'swap',
-  weight: ['200', '300', '400', '500'],
+  weight: ['300', '400', '500', '600'],
 });
 
 export const metadata: Metadata = {
@@ -45,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${playfair.variable} ${outfit.variable}`}>
+    <html lang="ru" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );

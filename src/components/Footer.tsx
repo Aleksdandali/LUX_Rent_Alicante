@@ -42,7 +42,7 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div>
-            <span className="text-lg font-display font-medium tracking-[0.2em] text-text-primary uppercase block mb-6">
+            <span className="text-lg font-display font-light tracking-[0.2em] text-text-primary uppercase block mb-6">
               Alicante Luxe Drive
             </span>
             <p className="text-sm text-text-secondary font-light leading-relaxed mb-8">

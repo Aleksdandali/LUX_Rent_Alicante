@@ -96,10 +96,10 @@ export function PopularCars() {
           className="mb-16"
         >
           <h2
-            className="font-display font-medium text-text-primary tracking-tight"
+            className="font-display font-light text-text-primary tracking-tight"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
           >
-            <span className="italic text-gold">Автопарк</span>
+            <span className="text-gold">Автопарк</span>
           </h2>
           <p className="text-text-secondary mt-4 max-w-xl font-light">
             Собственный автопарк из 25 премиальных автомобилей. Каждый проходит предрейсовую подготовку перед выдачей.
@@ -185,7 +185,7 @@ export function PopularCars() {
                 {/* Price */}
                 <div className="mb-6">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-display font-medium text-text-primary">
+                    <span className="text-2xl font-display font-light text-text-primary">
                       {'\u20AC'}{car.pricePerDay}
                     </span>
                     <span className="text-sm text-text-tertiary">/ день</span>

@@ -52,11 +52,11 @@ export function WhyUs() {
           className="mb-20"
         >
           <h2
-            className="font-display font-medium text-text-primary tracking-tight"
+            className="font-display font-light text-text-primary tracking-tight"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
           >
             Почему клиенты{' '}
-            <span className="italic text-gold">выбирают нас</span>
+            <span className="text-gold">выбирают нас</span>
           </h2>
           <p className="text-text-secondary mt-4 max-w-2xl font-light">
             Собственный автопарк, собственная команда, прямые условия. С 2020 года мы специализируемся исключительно на аренде премиальных автомобилей в Аликанте.

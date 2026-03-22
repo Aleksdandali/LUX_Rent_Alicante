@@ -56,10 +56,10 @@ export function Testimonials() {
         >
           <div>
             <h2
-              className="font-display font-medium text-text-primary tracking-tight"
+              className="font-display font-light text-text-primary tracking-tight"
               style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
             >
-              <span className="italic text-gold">Отзывы</span>
+              <span className="text-gold">Отзывы</span>
             </h2>
             <p className="text-text-secondary mt-4 font-light">
               4.9 из 5 на Google Reviews (127 отзывов)

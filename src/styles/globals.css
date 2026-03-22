@@ -1,36 +1,31 @@
 @import 'tailwindcss';
 
 /* ═══════════════════════════════════════════════════
-   ALICANTE LUXE DRIVE — Design System v4
-   Playfair Display + Outfit
-   Deep navy-black + 24K Gold
+   ALICANTE LUXE DRIVE — Design System v5
+   Space Grotesk + Inter
+   Strict · Clean · Premium
    ═══════════════════════════════════════════════════ */
 
 @theme inline {
-  /* 24K Gold — настоящий цвет золота, не жёлтый */
   --color-gold: #C9A84C;
   --color-gold-light: #D8BC6A;
   --color-gold-muted: rgba(201, 168, 76, 0.12);
   --color-gold-subtle: rgba(201, 168, 76, 0.06);
 
-  /* Backgrounds — глубокий тёмно-синий чёрный */
   --color-bg-primary: #060709;
   --color-bg-elevated: #0C0E13;
   --color-bg-surface: #111319;
   --color-bg-hover: #171A22;
 
-  /* Text — тёплый кремовый */
   --color-text-primary: #F0ECE2;
   --color-text-secondary: rgba(240, 236, 226, 0.62);
   --color-text-tertiary: rgba(240, 236, 226, 0.38);
 
-  /* Borders */
   --color-border: rgba(240, 236, 226, 0.06);
   --color-border-hover: rgba(240, 236, 226, 0.13);
 
-  /* Fonts */
-  --font-display: var(--font-display, 'Playfair Display'), 'Georgia', serif;
-  --font-body: var(--font-body, 'Outfit'), system-ui, sans-serif;
+  --font-display: var(--font-display, 'Space Grotesk'), system-ui, sans-serif;
+  --font-body: var(--font-body, 'Inter'), system-ui, sans-serif;
 }
 
 @layer base {
@@ -49,8 +44,8 @@
     color: var(--color-text-primary);
     font-family: var(--font-body);
     font-weight: 300;
-    line-height: 1.75;
-    letter-spacing: 0.015em;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
   }
 
   ::selection {

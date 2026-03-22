@@ -71,10 +71,10 @@ export function BookingProcess() {
           className="mb-12"
         >
           <h2
-            className="font-display font-medium text-text-primary tracking-tight"
+            className="font-display font-light text-text-primary tracking-tight"
             style={{ fontSize: 'clamp(2.25rem, 5vw, 3.5rem)' }}
           >
-            <span className="italic text-gold">Бронирование</span>
+            <span className="text-gold">Бронирование</span>
           </h2>
         </motion.div>
 
@@ -345,7 +345,7 @@ export function BookingProcess() {
                 <Check size={28} className="text-gold" />
               </motion.div>
 
-              <h3 className="text-2xl font-display font-medium text-text-primary mb-2">
+              <h3 className="text-2xl font-display font-light text-text-primary mb-2">
                 Бронирование подтверждено
               </h3>
               <p className="text-sm text-text-tertiary mb-8">

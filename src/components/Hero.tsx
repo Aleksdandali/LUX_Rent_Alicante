@@ -48,13 +48,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display font-medium text-text-primary leading-[1.08] tracking-[-0.01em]"
+            className="font-display font-light text-text-primary leading-[1.08] tracking-[-0.01em]"
             style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
           >
             Премиальная аренда{' '}
             <br className="hidden md:block" />
             авто в{' '}
-            <span className="text-gold italic">Аликанте</span>
+            <span className="text-gold">Аликанте</span>
           </motion.h1>
 
           {/* Subheading — professional, factual */}
@@ -110,7 +110,7 @@ export function Hero() {
                 { number: '24/7', label: 'поддержка' },
               ].map((stat) => (
                 <div key={stat.label} className="flex items-baseline gap-2">
-                  <span className="text-xl md:text-2xl font-display font-medium text-text-primary">
+                  <span className="text-xl md:text-2xl font-display font-light text-text-primary">
                     {stat.number}
                   </span>
                   <span className="text-xs text-text-tertiary tracking-wide">
