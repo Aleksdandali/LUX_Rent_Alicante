@@ -1,0 +1,112 @@
+/* ═══════════════════════════════════════════════════
+   ALICANTE LUXE DRIVE — Design System v3
+   Bodoni Moda + DM Sans
+   Cinematic navy-black + Rich gold
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  /* Gold — rich, deep, not yellow */
+  --gold: #D3AC2C;
+  --gold-light: #B78D24;
+  --gold-muted: rgba(211, 172, 44, 0.15);
+  --gold-subtle: rgba(211, 172, 44, 0.07);
+
+  /* Backgrounds — cinematic navy-black, not flat black */
+  --bg-primary: #050608;
+  --bg-elevated: #0D0F14;
+  --bg-surface: #12141A;
+  --bg-hover: #181B22;
+
+  /* Text — warm off-white */
+  --text-primary: #F5F4EF;
+  --text-secondary: rgba(245, 244, 239, 0.70);
+  --text-tertiary: rgba(245, 244, 239, 0.45);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.14);
+
+  /* Radius — zero for luxury */
+  --radius: 0px;
+
+  /* Fonts */
+  --font-display: 'Bodoni Moda', 'Didot', 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  /* Easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@theme inline {
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-muted: var(--gold-muted);
+  --color-gold-subtle: var(--gold-subtle);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-hover: var(--bg-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --font-family-display: var(--font-display);
+  --font-family-body: var(--font-body);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--gold-muted);
+    color: var(--text-primary);
+  }
+
+  /* Scrollbar — nearly invisible */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(211, 172, 44, 0.25);
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(211, 172, 44, 0.45);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
