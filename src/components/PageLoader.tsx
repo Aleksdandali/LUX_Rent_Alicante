@@ -1,141 +1,155 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 
+type Phase = 'dark' | 'car' | 'flash1' | 'pause1' | 'flash2' | 'pause2' | 'flash3' | 'hold' | 'done';
+
 export function PageLoader() {
-  const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState<'loading' | 'flash' | 'done'>('loading');
-  const [flashVisible, setFlashVisible] = useState(false);
-  const [flashIndex, setFlashIndex] = useState(0);
+  const [phase, setPhase] = useState<Phase>('dark');
 
-  // Progress 0 → 100
   useEffect(() => {
-    if (phase !== 'loading') return;
-    const interval = setInterval(() => {
-      setProgress((p) => {
-        if (p >= 100) return 100;
-        if (p < 20) return p + 0.8;
-        if (p < 60) return p + 1.5;
-        if (p < 85) return p + 1;
-        if (p < 95) return p + 0.5;
-        return p + 0.3;
-      });
-    }, 25);
-    return () => clearInterval(interval);
-  }, [phase]);
+    const sequence: { next: Phase; delay: number }[] = [
+      { next: 'car', delay: 400 },
+      { next: 'flash1', delay: 900 },
+      { next: 'pause1', delay: 160 },
+      { next: 'flash2', delay: 400 },
+      { next: 'pause2', delay: 160 },
+      { next: 'flash3', delay: 350 },
+      { next: 'hold', delay: 220 },
+      { next: 'done', delay: 800 },
+    ];
 
-  // When 100% → flash phase
-  useEffect(() => {
-    if (progress >= 100 && phase === 'loading') {
-      setTimeout(() => setPhase('flash'), 400);
-    }
-  }, [progress, phase]);
+    let i = 0;
+    let timer: ReturnType<typeof setTimeout>;
 
-  // 3 flashes
-  useEffect(() => {
-    if (phase !== 'flash') return;
-    let count = 0;
-    const interval = setInterval(() => {
-      count++;
-      if (count <= 6) {
-        setFlashVisible(count % 2 === 1);
-        setFlashIndex(Math.ceil(count / 2));
-      } else {
-        clearInterval(interval);
-        setFlashVisible(false);
-        setTimeout(() => setPhase('done'), 500);
-      }
-    }, 180);
-    return () => clearInterval(interval);
-  }, [phase]);
+    const step = () => {
+      if (i >= sequence.length) return;
+      timer = setTimeout(() => {
+        setPhase(sequence[i].next);
+        i++;
+        step();
+      }, sequence[i].delay);
+    };
+
+    step();
+    return () => clearTimeout(timer);
+  }, []);
+
+  const isFlash = phase === 'flash1' || phase === 'flash2' || phase === 'flash3';
+  const showCar = phase !== 'dark';
 
   return (
     <AnimatePresence>
       {phase !== 'done' ? (
         <motion.div
-          key="loader"
+          key="page-loader"
           exit={{ opacity: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[9999] bg-[#060709]"
+          className="fixed inset-0 z-[9999] bg-[#060709] overflow-hidden"
         >
-          {/* Car — FULLSCREEN background */}
+          {/* Fullscreen car background */}
           <motion.div
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: phase === 'flash' && !flashVisible ? 0.4 : 0.7, scale: 1 }}
-            transition={{ duration: phase === 'flash' ? 0.12 : 1.5, ease: 'easeOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showCar ? 1 : 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
             className="absolute inset-0"
           >
             <Image
               src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
-              alt="Luxury Car"
+              alt=""
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
               sizes="100vw"
             />
-            {/* Dark overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-[#060709]/40 to-[#060709]/60" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#060709]/50 via-transparent to-[#060709]" />
+            <div className="absolute inset-0 bg-[#060709]/45" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-[#060709]/30" />
           </motion.div>
 
-          {/* Headlight flashes — full-width glow */}
-          {phase === 'flash' && flashVisible && (
-            <>
-              <div
-                className="absolute top-[35%] left-[20%] w-40 h-20 blur-3xl z-20"
-                style={{ background: 'radial-gradient(ellipse, rgba(255,255,230,0.8), transparent)' }}
-              />
-              <div
-                className="absolute top-[35%] right-[20%] w-40 h-20 blur-3xl z-20"
-                style={{ background: 'radial-gradient(ellipse, rgba(255,255,230,0.8), transparent)' }}
-              />
-              {/* Screen flash */}
-              <div className="absolute inset-0 bg-white/[0.03] z-10" />
-            </>
-          )}
-
-          {/* Bottom content — brand + progress */}
-          <div className="absolute bottom-0 left-0 right-0 z-30 p-8 md:p-16">
-            {/* Brand */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mb-8"
-            >
-              <span className="text-xs md:text-sm font-display font-light tracking-[0.3em] text-text-primary/80 uppercase">
-                Alicante <span className="text-gold">Luxe</span> Drive
-              </span>
-            </motion.div>
-
-            {/* Progress */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              {/* Bar */}
-              <div className="w-full max-w-md h-[1px] bg-white/10 relative mb-4">
-                <motion.div
-                  className="absolute top-0 left-0 h-full bg-gold"
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.05, ease: 'linear' }}
+          {/* Headlight flash — realistic multi-layer glow */}
+          <AnimatePresence>
+            {isFlash && (
+              <motion.div
+                key={phase}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.07 }}
+                className="absolute inset-0 z-20 pointer-events-none"
+              >
+                {/* Left — hot core */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '36%', left: '15%',
+                    width: 'clamp(120px, 20vw, 280px)',
+                    height: 'clamp(60px, 10vw, 140px)',
+                    background: 'radial-gradient(ellipse, rgba(255,253,240,0.95) 0%, rgba(255,248,220,0.5) 40%, transparent 80%)',
+                    filter: 'blur(6px)',
+                  }}
                 />
-              </div>
+                {/* Left — diffuse spread */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '22%', left: '2%',
+                    width: 'clamp(250px, 40vw, 600px)',
+                    height: 'clamp(150px, 25vw, 350px)',
+                    background: 'radial-gradient(ellipse 60% 45%, rgba(255,250,230,0.2) 0%, transparent 70%)',
+                    filter: 'blur(25px)',
+                  }}
+                />
 
-              {/* Number */}
-              <div className="flex justify-between items-baseline max-w-md">
-                <span className="text-[10px] tracking-[0.2em] uppercase text-text-tertiary font-body">
-                  Loading experience
-                </span>
-                <span className="text-3xl md:text-4xl font-display font-light text-text-primary tabular-nums tracking-tight">
-                  {Math.floor(progress)}
-                </span>
-              </div>
-            </motion.div>
-          </div>
+                {/* Right — hot core */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '36%', right: '15%',
+                    width: 'clamp(120px, 20vw, 280px)',
+                    height: 'clamp(60px, 10vw, 140px)',
+                    background: 'radial-gradient(ellipse, rgba(255,253,240,0.95) 0%, rgba(255,248,220,0.5) 40%, transparent 80%)',
+                    filter: 'blur(6px)',
+                  }}
+                />
+                {/* Right — diffuse spread */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '22%', right: '2%',
+                    width: 'clamp(250px, 40vw, 600px)',
+                    height: 'clamp(150px, 25vw, 350px)',
+                    background: 'radial-gradient(ellipse 60% 45%, rgba(255,250,230,0.2) 0%, transparent 70%)',
+                    filter: 'blur(25px)',
+                  }}
+                />
+
+                {/* Screen ambient */}
+                <div className="absolute inset-0 bg-white/[0.035]" />
+
+                {/* Road reflection */}
+                <div
+                  className="absolute bottom-0 left-[10%] right-[10%] h-[25%]"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(255,250,235,0.06) 0%, transparent 100%)',
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Brand watermark — bottom left */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showCar ? 1 : 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="absolute bottom-5 left-5 md:bottom-10 md:left-10 lg:bottom-14 lg:left-14 z-30"
+          >
+            <span className="text-[10px] md:text-[11px] font-display font-normal tracking-[0.3em] text-text-primary/50 uppercase">
+              Alicante <span className="text-gold/60">Luxe</span> Drive
+            </span>
+          </motion.div>
         </motion.div>
       ) : null}
     </AnimatePresence>
